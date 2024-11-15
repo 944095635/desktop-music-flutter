@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:desktop_music_flutter/common/system_chrome.dart';
 import 'package:desktop_music_flutter/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,11 @@ import 'package:window_manager/window_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  /// 全屏 隐藏系统控制栏
+  await SystemChromeUtils.set();
+
+  /// MediaKit初始化
   MediaKit.ensureInitialized();
 
   // PC上面才设置窗口大小
@@ -26,7 +32,6 @@ void main() async {
       await windowManager.focus();
     });
   }
-
   runApp(const MyApp());
 }
 
@@ -41,6 +46,13 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       theme: ThemeData(
         fontFamily: "AvantGardeStd",
+        appBarTheme: const AppBarTheme(
+          toolbarHeight: 0,
+          // backgroundColor: Colors.transparent,
+          // systemOverlayStyle: SystemUiOverlayStyle(
+          //   statusBarColor: Colors.transparent,
+          // ),
+        ),
         colorScheme: const ColorScheme.dark(
           brightness: Brightness.light,
           // 表面颜色
@@ -60,6 +72,13 @@ class MyApp extends StatelessWidget {
       ),
       darkTheme: ThemeData(
         fontFamily: "AvantGardeStd",
+        appBarTheme: const AppBarTheme(
+          toolbarHeight: 0,
+          // backgroundColor: Colors.transparent,
+          // systemOverlayStyle: SystemUiOverlayStyle(
+          //   statusBarColor: Colors.transparent,
+          // ),
+        ),
         colorScheme: const ColorScheme.dark(
           brightness: Brightness.dark,
           // 表面颜色

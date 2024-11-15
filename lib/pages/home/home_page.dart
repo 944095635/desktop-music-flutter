@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:animate_do/animate_do.dart';
+import 'package:desktop_music_flutter/common/system_chrome.dart';
 import 'package:desktop_music_flutter/pages/home/home_controller.dart';
 import 'package:desktop_music_flutter/pages/home/widgets/play_mini_control.dart';
 import 'package:desktop_music_flutter/values/svgs.dart';
@@ -21,18 +24,22 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     Get.put(HomeController());
     return Scaffold(
+      appBar: AppBar(),
+      extendBodyBehindAppBar: true,
       body: Stack(
         fit: StackFit.expand,
         children: [
           _buildVideo(),
           // 拖动组件
-          const Positioned(
-            left: 0,
-            right: 0,
-            top: 0,
-            height: 120,
-            child: DragToMoveArea(),
-          ),
+          if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) ...{
+            const Positioned(
+              left: 0,
+              right: 0,
+              top: 0,
+              height: 120,
+              child: DragToMoveArea(),
+            ),
+          },
 
           /// 底部组件集合
           Positioned(
@@ -100,22 +107,41 @@ class HomePage extends GetView<HomeController> {
 
   /// 视频组件
   Widget _buildVideo() {
-    return MaterialDesktopVideoControlsTheme(
-      normal: const MaterialDesktopVideoControlsThemeData(
-        displaySeekBar: false,
-        playAndPauseOnTap: false,
-        toggleFullscreenOnDoublePress: false,
-        bottomButtonBar: [],
-      ),
-      fullscreen: const MaterialDesktopVideoControlsThemeData(
+    return MaterialVideoControlsTheme(
+      normal: const MaterialVideoControlsThemeData(
         displaySeekBar: false,
         bottomButtonBar: [],
+        primaryButtonBar: [],
       ),
-      child: Video(
-        fit: BoxFit.cover,
-        key: controller.keyVideo,
-        controller: controller.playVideoController!,
-        //controls: NoVideoControls,
+      fullscreen: const MaterialVideoControlsThemeData(
+        displaySeekBar: false,
+        primaryButtonBar: [],
+        topButtonBar: [],
+        bottomButtonBar: [],
+      ),
+      child: MaterialDesktopVideoControlsTheme(
+        normal: const MaterialDesktopVideoControlsThemeData(
+          displaySeekBar: false,
+          playAndPauseOnTap: false,
+          toggleFullscreenOnDoublePress: false,
+          bottomButtonBar: [],
+        ),
+        fullscreen: const MaterialDesktopVideoControlsThemeData(
+          displaySeekBar: false,
+          bottomButtonBar: [],
+        ),
+        child: Video(
+          fit: BoxFit.cover,
+          key: controller.keyVideo,
+          controller: controller.playVideoController!,
+          controls: Platform.isAndroid || Platform.isIOS
+              ? NoVideoControls
+              : AdaptiveVideoControls,
+          onExitFullscreen: () async {
+            SystemChromeUtils.set();
+          },
+          //controls: NoVideoControls,
+        ),
       ),
     );
   }
