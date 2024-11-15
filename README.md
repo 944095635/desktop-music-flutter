@@ -1,16 +1,9 @@
-# desktop_music_flutter
+# Desktop Music Flutter
 
-A new Flutter project.
+## 使用Flutter 开发的Widnows/MacOS/Linux 桌面端 音乐播放器。
 
-## Getting Started
+### 仅有单个页面，实现了 全屏播放和音乐切换。
+### 项目体积非常大，里面包含一个视频文件 90MB
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
