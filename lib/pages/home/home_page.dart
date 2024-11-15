@@ -24,8 +24,6 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     Get.put(HomeController());
     return Scaffold(
-      appBar: AppBar(),
-      extendBodyBehindAppBar: true,
       body: Stack(
         fit: StackFit.expand,
         children: [
