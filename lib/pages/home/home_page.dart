@@ -45,28 +45,36 @@ class HomePage extends GetView<HomeController> {
                 from: 120,
                 duration: const Duration(seconds: 1),
                 animate: controller.music.value != null,
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    // 封面底图
-                    Positioned(
-                      left: 15,
-                      bottom: 15,
-                      child: _buildCoverBackground(),
-                    ),
-                    // 控制条
-                    BlurWidget(
-                      child: _buildControls(context),
-                    ),
-                  ],
-                ),
+                child: controller.music.value != null
+                    ? Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          // 封面底图
+                          Positioned(
+                            left: 15,
+                            bottom: 15,
+                            child: _buildCoverBackground(),
+                          ),
+                          // 控制条
+                          BlurWidget(
+                            child: _buildControls(context),
+                          ),
+                        ],
+                      )
+                    : const SizedBox(),
               ),
             ),
           ),
           Positioned(
             right: 10,
             top: 10,
-            child: _buildThemeButton(context),
+            child: Obx(
+              () => SlideInRight(
+                duration: const Duration(seconds: 1),
+                animate: controller.music.value != null,
+                child: _buildThemeButton(context),
+              ),
+            ),
           ),
         ],
       ),
