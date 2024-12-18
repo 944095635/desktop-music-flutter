@@ -35,7 +35,9 @@ class HomePage extends GetView<HomeController> {
               right: 0,
               top: 0,
               height: 120,
-              child: DragToMoveArea(),
+              child: DragToMoveArea(
+                child: SizedBox(),
+              ),
             ),
           },
 
