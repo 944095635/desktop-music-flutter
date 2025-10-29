@@ -1003,6 +1003,8 @@ class _RenderSlider extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
       ShowValueIndicator.onlyForContinuous => !isDiscrete,
       ShowValueIndicator.always => true,
       ShowValueIndicator.never => false,
+      ShowValueIndicator.onDrag => true,
+      ShowValueIndicator.alwaysVisible => true,
     };
   }
 
