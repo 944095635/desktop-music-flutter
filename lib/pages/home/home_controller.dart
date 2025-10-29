@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:desktop_music_flutter/api/test_api.dart';
 import 'package:desktop_music_flutter/models/music.dart';
@@ -159,6 +160,9 @@ class HomeController extends GetxController
 
   /// 最大化全屏
   void fullscreen() {
+    if (Platform.isIOS) {
+      return;
+    }
     keyVideo.currentState?.enterFullscreen();
     // if (keyVideo.currentState?.isFullscreen() ?? false) {
     // }
